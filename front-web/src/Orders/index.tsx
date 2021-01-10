@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import ProductList from './ProductList'
 import StepsHeader from './StepsHeader'
 import './style.css'
-import { Product } from './types';
+import { OrderLocationData, Product } from './types';
 import { fetchProducts } from '../api';
+import OrderLocation from './OrderLocation';
 function Order() {
     const [products, setProducts] = useState<Product[]>([]);   
+    const [orderLocation, setOrderLocation] = useState<OrderLocationData>();
     useEffect(()=>{
         fetchProducts()
             .then(res => setProducts(res.data))
@@ -15,6 +17,7 @@ function Order() {
         <div className="orders-container">
             <StepsHeader/>
             <ProductList products={products}/>
+            <OrderLocation onChangeLocation={location => setOrderLocation(location)}/>
         </div>
     )
 }
