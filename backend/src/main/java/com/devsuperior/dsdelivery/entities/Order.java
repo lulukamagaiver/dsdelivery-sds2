@@ -1,6 +1,7 @@
 package com.devsuperior.dsdelivery.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -99,6 +100,15 @@ public class Order implements Serializable {
 
 	public Set<Product> getProducts() {
 		return products;
+	}
+	
+	public BigDecimal getTotal() {
+		BigDecimal total = BigDecimal.ZERO;
+		
+		for(Product p : products) {
+			total = total.add(p.getPrice());
+		}
+		return total;
 	}
 
 	@Override

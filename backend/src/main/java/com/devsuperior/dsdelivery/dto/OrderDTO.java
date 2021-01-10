@@ -1,6 +1,7 @@
 package com.devsuperior.dsdelivery.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,19 +20,21 @@ public class OrderDTO implements Serializable {
 	private String longitude;
 	private Instant moment;
 	private OrderStatus status;
+	private BigDecimal total;
 
 	private List<ProductDTO> products = new ArrayList<>();
 
 	public OrderDTO() {
 	}
 
-	public OrderDTO(Long id, String address, String latitude, String longitude, Instant moment, OrderStatus status) {
+	public OrderDTO(Long id, String address, String latitude, String longitude, Instant moment, OrderStatus status, BigDecimal total) {
 		this.id = id;
 		this.address = address;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.moment = moment;
 		this.status = status;
+		this.total = total;
 	}
 
 	public OrderDTO(Order entity) {
@@ -41,6 +44,7 @@ public class OrderDTO implements Serializable {
 		longitude = entity.getLongitude();
 		moment = entity.getMoment();
 		status = entity.getStatus();
+		total = entity.getTotal();
 		products = entity.getProducts().stream().map(p -> new ProductDTO(p)).collect(Collectors.toList());
 	}
 
@@ -94,6 +98,14 @@ public class OrderDTO implements Serializable {
 
 	public List<ProductDTO> getProducts() {
 		return products;
+	}
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
 	}
 
 }
